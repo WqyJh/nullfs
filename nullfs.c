@@ -19,11 +19,13 @@
 static int nullfs_getattr(const char *path, struct stat *stbuf)
 {
 	memset(stbuf, 0, sizeof(struct stat));
-	if (strcmp(path, "/") == 0) {
+	if (strcmp(path, "/") == 0)
+	{
 		stbuf->st_mode = S_IFDIR | 0755;
 		stbuf->st_nlink = 1;
-	} else 
-    {
+	}
+	else
+	{
 		stbuf->st_mode = S_IFREG | 0755;
 		stbuf->st_nlink = 1;
 	}
@@ -33,7 +35,7 @@ static int nullfs_getattr(const char *path, struct stat *stbuf)
 
 static int nullfs_truncate(const char *path, off_t size)
 {
-    return 0;
+	return 0;
 }
 
 static int nullfs_open(const char *path, struct fuse_file_info *fi)
@@ -42,29 +44,41 @@ static int nullfs_open(const char *path, struct fuse_file_info *fi)
 }
 
 static int nullfs_read(const char *path, char *buf, size_t size,
-		     off_t offset, struct fuse_file_info *fi)
+					   off_t offset, struct fuse_file_info *fi)
 {
 	return size;
 }
 
 static int nullfs_write(const char *path, const char *buf, size_t size,
-		      off_t offset, struct fuse_file_info *fi)
+						off_t offset, struct fuse_file_info *fi)
 {
 	return size;
 }
 
+static int nullfs_unlink(const char *path)
+{
+	return 0;
+}
+
+static int nullfs_rename(const char *src, const char *dst)
+{
+	return 0;
+}
+
 int nullfs_utimens(const char *path, const struct timespec tv[2])
 {
-    return 0;
+	return 0;
 }
 
 static struct fuse_operations nullfs_oper = {
-	.getattr	= nullfs_getattr,
-    .truncate   = nullfs_truncate,
-	.open		= nullfs_open,
-	.read		= nullfs_read,
-	.write		= nullfs_write,
-    .utimens     = nullfs_utimens,
+	.getattr = nullfs_getattr,
+	.truncate = nullfs_truncate,
+	.open = nullfs_open,
+	.read = nullfs_read,
+	.write = nullfs_write,
+	.unlink = nullfs_unlink,
+	.rename = nullfs_rename,
+	.utimens = nullfs_utimens,
 };
 
 int main(int argc, char *argv[])

@@ -24,4 +24,6 @@ mnt/hello
 $ cp nullfs.c mnt
 $ ls mnt/
 ls: reading directory 'mnt': Function not implemented
+$ mv hello mnt/
+mv: cannot create regular file 'mnt/hello': File exists
 ```
