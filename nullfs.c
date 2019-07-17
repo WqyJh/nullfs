@@ -15,6 +15,7 @@
 #include <unistd.h>
 #include <time.h>
 #include <errno.h>
+#include <stdio.h>
 
 static int nullfs_getattr(const char *path, struct stat *stbuf)
 {
@@ -27,7 +28,6 @@ static int nullfs_getattr(const char *path, struct stat *stbuf)
 	else
 	{
 		stbuf->st_mode = S_IFREG | 0755;
-		stbuf->st_nlink = 1;
 	}
 
 	return 0;
